@@ -1,0 +1,6 @@
+midclt call system.advanced.update '{"intel_iommu=on": "iommu=pt": "pci=realloc"}'
+
+midclt call system.advanced.update '{"kernel_extra_options": "amd_iommu=on pci=realloc iommu=pt"}'
+
+
+midclt call system.advanced.update '{"kernel_extra_options": "pci=realloc iommu=pt"}'

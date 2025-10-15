@@ -1,0 +1,1025 @@
+
+
+GRUB_CMDLINE_LINUX_DEFAULT="vfio-pci.ids=8086:1521 amd_iommu=pt pci=realloc pci=assign-busses module_blacklist=nouveau vfio-pci.ids=10de:2206 vfio-pci.ids=10de:1aef vfio-pci.ids=10de:1b38"
+
+
+ GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on pci=realloc iommu=pt pci=assign-busses module_blacklist=nouveau threadirqs nvidia-drm.modeset=1"
+
+
+ GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on pci=realloc iommu=pt pci=assign-busses module_blacklist=nouveau threadirqs"
+
+
+GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on pci=realloc iommu=pt threadirqs"
+
+
+
+GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on pci=realloc iommu=pt module_blacklist=nouveau threadirqs"
+
+
+
+
+GRUB_CMDLINE_LINUX_DEFAULT="amd_iommu=on pci=realloc iommu=pt pci=assign-busses module_blacklist=nouveau threadirqs net.ifnames=0"
+
+
+
+GRUB_CMDLINE_LINUX_DEFAULT="amd_iommu=on pci=realloc iommu=pt pci=assign-busses video=efifb:off"
+
+
+
+
+
+
+
+nano /etc/default/grub
+
+
+update-grub
+
+
+
+
+gsm-agent :
+apt-get install sudo ufw libncursesw5 libncurses5 htop tuned driverctl ipmitool
+
+
+apt-get install sudo libncursesw5 libncurses5 htop driverctl
+
+apt-get install sudo htop gnupg2 curl net-tools driverctl ipmitool ipmiutil nano btop nut libneon27 mesa-utils
+
+apt-get install openvswitch-switch nut libneon27 ipmiutil ipmitool nano btop htop gnupg2 curl net-tools driverctl
+
+
+
+wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg
+
+
+cd /tmp
+curl -o setup-repos.sh https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh
+sh setup-repos.sh
+
+
+
+
+
+
+apt-get install linux-xanmod-lts-x64v3 git dkms build-essential
+
+
+
+
+git clone https://github.com/gnif/vendor-reset.git
+cd vendor-reset
+dkms install .
+
+
+
+
+
+
+
+
+
+
+
+
+apt-get install openvswitch-switch nut libneon27 openvswitch-doc python3-netaddr python-sortedcontainers-doc ipmiutil ipmitool nano btop htop gnupg2 curl net-tools driverctl
+
+
+
+
+apt-get install openvswitch-switch nut openvswitch-doc python3-netaddr python-sortedcontainers-doc ipmiutil ipmitool
+#apt-get install acpi-call-dkms
+
+
+apt-get install nut ipmiutil ipmitool htop nano btop libneon27 linux-image-amd64
+
+
+apt-get install cockpit-bridge cockpit-system cockpit-ws cockpit-pcp pcp htop nano btop cockpit-storaged cockpit-networkmanager cockpit-sosreport cockpit-packagekit systemd-timesyncd
+
+
+systemctl enable --now cockpit.socket
+
+
+useradd eti
+
+
+passwd eti
+
+
+usermod -aG sudo eti
+
+
+
+
+apt-get install linux-xanmod-lts-x64v3 nut nut-i2c nut-ipmi nut-modbus nut-snmp nut-xml libneon27
+
+
+
+
+
+apt-get install linux-xanmod-lts-x64v3 nut libneon27
+
+
+
+
+
+touch '/please-remove-proxmox-ve'
+apt-get remove --purge proxmox-kernel-6*
+
+
+driverctl set-override 0000:61:00.0 vfio-pci && driverctl set-override 0000:03:00.1 vfio-pci && driverctl set-override 0000:03:00.0 vfio-pci
+
+
+driverctl set-override 0000:41:10.0 vfio-pci && driverctl set-override 0000:41:10.2 vfio-pci && driverctl set-override 0000:41:10.4 vfio-pci && driverctl set-override 0000:41:10.6 vfio-pci
+
+
+driverctl set-override 0000:41:11.0 vfio-pci && driverctl set-override 0000:41:11.2 vfio-pci && driverctl set-override 0000:41:11.4 vfio-pci && driverctl set-override 0000:41:11.6 vfio-pci
+
+
+[root@host~]# modprobe cxgb4
+[root@host~]# echo 8 > /sys/class/net/enp66s0f4/device/driver/0000:42:00.0/sriov_numvfs
+
+/sys/class/net/ethX/device/driver/<bus_id>/sriov_numvfs
+
+ethtool --set-priv-flags enp66s0f4 port_tx_vm_wr on
+
+61:00.0
+/sys/kernel/iommu_groups/65/devices/0000:61:00.0
+
+03:00.0
+/sys/kernel/iommu_groups/16/devices/0000:03:00.0
+
+
+03:00.1
+/sys/kernel/iommu_groups/17/devices/0000:03:00.1
+
+
+
+
+
+
+nano /etc/default/grub
+
+
+
+GRUB_CMDLINE_LINUX_DEFAULT="vfio-pci.ids=8086:1521 amd_iommu=pt module_blacklist=nouveau vfio-pci.ids=10de:2206 vfio-pci.ids=10de:1aef vfio-pci.ids=10de:1b38"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# The following is a step-by-step example for enabling SR-IOV VF on Promxox 7+ with BCM57810 10G NIC
+
+---
+References
+
+https://forum.proxmox.com/threads/enabling-sr-iov-for-intel-nic-x550-t2-on-proxmox-6.56677/
+https://zhuanlan.zhihu.com/p/91197211
+https://zhuanlan.zhihu.com/p/356437308
+https://zhiliao.h3c.com/Theme/details/24770
+https://blog.csdn.net/Jackykxy/article/details/120585563
+
+---
+Update grub to enable SR-IOV
+
+# update the following line in /etc/default/grub
+nano /etc/default/grub
+Intel：
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on pci=realloc iommu=pt pci=assign-busses pcie_acs_override=downstream,multifunction nofb textonly nomodeset initcall_blacklist=sysfb_init"
+
+AMD：
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on pci=realloc iommu=pt pci=assign-busses pcie_acs_override=downstream,multifunction nofb textonly nomodeset initcall_blacklist=sysfb_init"
+
+
+
+
+GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on pci=realloc iommu=pt pci=assign-busses module_blacklist=nouveau threadirqs"
+
+
+
+
+
+
+GRUB_CMDLINE_LINUX_DEFAULT="amd_iommu=pt pci=realloc pci=assign-busses pcie_acs_override=downstream,multifunction mitigations=off vfio-pci.ids=8086:1521 module_blacklist=nouveau quiet vfio-pci.ids=10de:2206 vfio-pci.ids=10de:1aef vfio-pci.ids=10de:1b38"
+
+GRUB_CMDLINE_LINUX_DEFAULT="amd_iommu=pt pci=realloc pci=assign-busses pcie_acs_override=downstream,multifunction mitigations=off module_blacklist=nouveau vfio-pci.ids=10de:2206 vfio-pci.ids=10de:1aef vfio-pci.ids=10de:1b38"
+
+
+GRUB_CMDLINE_LINUX_DEFAULT="amd_iommu=pt pci=realloc pci=assign-busses pcie_acs_override=downstream,multifunction module_blacklist=nouveau vfio-pci.ids=10de:2206 vfio-pci.ids=10de:1aef vfio-pci.ids=10de:1b38"
+
+GRUB_CMDLINE_LINUX_DEFAULT="amd_iommu=pt pci=realloc pci=assign-busses pcie_acs_override=downstream,multifunction module_blacklist=nouveau vfio-pci.ids=10de:2206 vfio-pci.ids=10de:1aef vfio-pci.ids=10de:1b38 hugepagesz=2MB hugepages=32768"
+"
+
+
+update-grub
+
+# Local modules
+nano /etc/modules
+
+# add the following modules
+vfio
+vfio_iommu_type1
+vfio_pci
+vendor-reset
+
+
+
+# IOMMU interrupt remapping
+# echo "options vfio_iommu_type1 allow_unsafe_interrupts=1" > /etc/modprobe.d/iommu_unsafe_interrupts.conf
+# echo "options kvm ignore_msrs=1" > /etc/modprobe.d/kvm.conf
+
+
+
+
+echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf && echo "blacklist nvidia" >> /etc/modprobe.d/blacklist.conf && echo "blacklist amdgpu" >> /etc/modprobe.d/blacklist.conf && echo "blacklist radeon" >> /etc/modprobe.d/blacklist.conf
+
+
+nano /etc/modprobe.d/blacklist.conf
+
+blacklist radeon
+blacklist amdgpu
+blacklist nvidia
+blacklist nouveau
+
+
+# Update kernel
+update-initramfs -u
+
+# Reboot
+reboot
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To enable OVS TC-Flower offload, you must enable hardware offload in the Open vSwitch configuration using the command ovs-vsctl set Open_vSwitch . other_config:hw-offload=trueand then restart theopenvswitchservice [3, 4]. This process diverts networking tasks from the CPU to dedicated hardware, such as the NIC, to improve performance [1, 10]. You can also useethtool -K hw-tc-offload on` on the physical interface to configure the NIC's hardware offload.
+Steps to Enable OVS TC-Flower Offload
+Enable Hardware Offload in OVS
+Run the following command to set the hw-offload configuration option to true:
+
+bash
+ovs-vsctl set Open_vSwitch . other_config:hw-offload=true
+
+This command enables hardware offload within the Open vSwitch configuration itself.
+Restart the Open vSwitch Service
+Restarting the OVS service is crucial for the changes to take effect:
+
+bash
+sudo systemctl restart openvswitch
+
+This step applies the new hardware offload settings.
+Configure the Network Interface (Optional but Recommended)
+You can also directly enable hardware TC offload on the physical network interface using ethtool:
+
+bash
+sudo ethtool -K <interface> hw-tc-offload on
+
+Replace <interface> with the name of your physical network interface (e.g., eth0).
+How it Works
+CPU Offload
+: OVS TC-Flower uses the kernel's Traffic Control (TC) infrastructure, specifically the flower classifier, to define packet rules.
+Hardware Acceleration
+: By enabling hw-offload=true and the underlying NIC support, OVS can offload these matching and action tasks to the network interface card (NIC), which has specialized hardware for this.
+Performance Benefits
+: This hardware offload reduces CPU utilization, leading to significant performance improvements for virtual machine networking.
+Key Considerations
+NIC Support
+: For true hardware offload, your Network Interface Card (NIC) must support the necessary TC Flower offload features.
+TC Policy
+: You can also configure the tc-policy setting to control how flows are added to hardware and software, for example, using skip_sw to add rules only to hardware.
+DPDK vs. Kernel-OVS
+: Hardware offload with TC-Flower is typically associated with the OVS Kernel datapath.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nano /etc/network/interfaces
+
+
+
+# network interface settings; autogenerated
+# Please do NOT modify this file directly, unless you know what
+# you're doing.
+#
+# If you want to manage parts of the network configuration manually,
+# please utilize the 'source' or 'source-directory' directives to do
+# so.
+# PVE will preserve these directives, but will NOT read its network
+# configuration from sourced files, so do not attempt to move any of
+# the PVE managed interfaces into external files!
+
+auto lo
+iface lo inet loopback
+
+iface enp100s0 inet manual
+
+iface enxf6af1def84a7 inet manual
+
+iface enp98s0 inet manual
+
+auto enp65s0f0 inet manuel
+
+auto enp65s0f1 inet manuel
+
+
+auto vmbr0
+iface vmbr0 inet static
+        address 192.168.0.25/24
+        gateway 192.168.0.1
+        bridge-ports enp100s0
+        bridge-stp off
+        bridge-fd 0
+
+source /etc/network/interfaces.d/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+Inspect SR-IOV Capabilities
+
+# After enabling SR-IOV in BIOS, you should be able to see the SR-IOV capabilities
+lspci -s "xx:xx" -vvv
+
+lspci -vvv
+
+lspci -v
+
+---
+Instantiate VFs
+
+echo 8 > /sys/class/net/enp67s0f0/device/sriov_numvfs
+
+echo 8 > /sys/class/net/enp65s0f1/device/sriov_numvfs
+
+echo 8 > /sys/class/net/enp65s0f4/device/driver/0000:41:00.0/sriov_numvfs
+
+echo 8 > /sys/class/net/enp65s0f4d1/device/driver/0000:41:00.0/sriov_numvfs
+
+echo 8 > /sys/class/net/eth2/device/driver/0000:41:00.0/sriov_numvfs
+
+/sys/class/net/enp65s0f4/device/driver/0000:41:00.0
+
+/sys/class/net/enp97s0f4/device/driver/0000:61:00.0
+
+cd /sys/class/net/
+
+cd /sys/class/net/enp65s0f4d2/device/driver
+
+cd /sys/class/net/enp65s0f4/device/driver
+
+# verify result
+lspci | grep –i ethernet
+ip addr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+Create SR-IOV daemon service
+
+nano /etc/systemd/system/sriov.service
+
+# /etc/systemd/system/sriov.service
+[Unit]
+Description=Script to enable SR-IOV on boot
+
+[Service]
+Type=simple
+# set PF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f0np0 up'
+#ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f1np1 up'
+# start SR-IOV
+#ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp65s0f0np0/device/sriov_numvfs'
+ExecStart=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp65s0f0np0/device/sriov_numvfs'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl enable --now sriov.service
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+Create SR-IOV daemon service
+
+nano /etc/systemd/system/sriov.service
+
+# /etc/systemd/system/sriov.service
+[Unit]
+Description=Script to enable SR-IOV on boot
+
+[Service]
+Type=simple
+# set PF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp97s0f4 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp97s0f4d1 up'
+# start SR-IOV
+# ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp97s0f4d1/device/driver/0000:61:00.0/sriov_numvfs'
+ExecStart=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp97s0f4/device/driver/0000:61:00.0/sriov_numvfs'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl enable --now sriov.service
+reboot
+
+
+
+
+
+
+
+
+
+
+
+
+---
+Create SR-IOV daemon service
+
+nano /etc/systemd/system/sriov.service
+
+# /etc/systemd/system/sriov.service
+[Unit]
+Description=Script to enable SR-IOV on boot
+
+[Service]
+Type=simple
+# set PF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4d1 up'
+# start SR-IOV
+# ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp65s0f4/device/driver/0000:41:00.0/sriov_numvfs'
+ExecStart=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp65s0f4d1/device/driver/0000:41:00.0/sriov_numvfs'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl enable --now sriov.service
+reboot
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+Create SR-IOV daemon service
+
+nano /etc/systemd/system/sriov.service
+
+
+
+# /etc/systemd/system/sriov.service
+[Unit]
+Description=Script to enable SR-IOV on boot
+
+[Service]
+Type=simple
+# set PF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set eth2 up'
+#ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4 up'
+# start SR-IOV
+#ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp65s0f4/device/driver/0000:41:00.0/sriov_numvfs'
+ExecStart=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/eth2/device/driver/0000:41:00.0/sriov_numvfs'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+Create SR-IOV daemon service
+
+nano /etc/systemd/system/sriov.service
+
+# /etc/systemd/system/sriov.service
+[Unit]
+Description=Script to enable SR-IOV on boot
+
+[Service]
+Type=simple
+# set PF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f1 up'
+# start SR-IOV
+ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp66s0f0/device/sriov_numvfs'
+# ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp66s0f1/device/sriov_numvfs'
+# set VF MAC
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v0 addr 24:8a:07:b7:a8:01'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v1 addr 24:8a:07:b7:a8:02'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v2 addr 24:8a:07:b7:a8:03'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v3 addr 24:8a:07:b7:a8:04'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v4 addr 24:8a:07:b7:a8:05'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v5 addr 24:8a:07:b7:a8:06'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v6 addr 24:8a:07:b7:a8:07'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v7 addr 24:8a:07:b7:a8:08'
+# set VF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v0 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v1 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v2 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v3 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v4 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v5 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v6 up'
+ExecStart=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v7 up'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl enable --now sriov.service
+reboot
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+Create SR-IOV daemon service
+
+nano /etc/systemd/system/sriov.service
+
+# /etc/systemd/system/sriov.service
+[Unit]
+Description=Script to enable SR-IOV on boot
+
+[Service]
+Type=simple
+# set PF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f0np0 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f1np1 up'
+# start SR-IOV
+ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp65s0f0np0/device/sriov_numvfs'
+# ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp65s0f1np1/device/sriov_numvfs'
+# set VF MAC
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f0v0 addr 24:8a:07:b7:a8:01'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f0v1 addr 24:8a:07:b7:a8:02'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f0v2 addr 24:8a:07:b7:a8:03'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f0v3 addr 24:8a:07:b7:a8:04'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f0v4 addr 24:8a:07:b7:a8:05'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f0v5 addr 24:8a:07:b7:a8:06'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f0v6 addr 24:8a:07:b7:a8:07'
+#ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f0v7 addr 24:8a:07:b7:a8:08'
+# set VF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f0v0 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f0v1 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f0v2 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f0v3 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f0v4 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f0v5 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f0v6 up'
+ExecStart=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f0v7 up'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl enable --now sriov.service
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nano /etc/systemd/system/vrwa.service
+
+[Unit]
+Description=vrwa Service
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/bash -c 'echo device_specific > /sys/bus/pci/devices/0000:05:00.0/reset_method'
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+systemctl daemon-reload
+systemctl enable vrwa
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+Create SR-IOV daemon service
+
+nano /etc/systemd/system/sriov.service
+
+# /etc/systemd/system/sriov.service
+[Unit]
+Description=Script to enable SR-IOV on boot
+
+[Service]
+Type=simple
+# set PF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4d1 up'
+# start SR-IOV
+ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp65s0f4/device/driver/0000:41:00.0/sriov_numvfs'
+# ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp65s0f4d1/device/sriov_numvfs'
+# set VF MAC
+ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f4v0 addr 24:8a:07:b7:a8:01'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f4v1 addr 24:8a:07:b7:a8:02'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f4v2 addr 24:8a:07:b7:a8:03'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f4v3 addr 24:8a:07:b7:a8:04'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f4v4 addr 24:8a:07:b7:a8:05'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f4v5 addr 24:8a:07:b7:a8:06'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f4v6 addr 24:8a:07:b7:a8:07'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp65s0f4v7 addr 24:8a:07:b7:a8:08'
+# set VF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4v0 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4v1 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4v2 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4v3 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4v4 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4v5 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4v6 up'
+ExecStart=/usr/bin/bash -c '/usr/bin/ip link set enp6s0f4v7 up'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl enable --now sriov.service
+
+
+
+
+
+
+
+
+
+chelsio
+
+
+
+
+nano /etc/systemd/system/sriov.service
+
+# /etc/systemd/system/sriov.service
+[Unit]
+Description=Script to enable SR-IOV on boot
+
+[Service]
+Type=simple
+# set PF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f4d2 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f4d3 up'
+# start SR-IOV
+# ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp66s0f4d1/device/driver/0000:42:00.1/sriov_numvfs'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp66s0f4/device/driver/0000:42:00.0/sriov_numvfs'
+#
+# ExecStartPre=/usr/bin/bash -c '/usr/bin/ethtool --set-priv-flags enp66s0f4d3 port_tx_vm_wr on'
+# set VF MAC
+ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v0 addr 24:8a:07:b7:a8:01'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v1 addr 24:8a:07:b7:a8:02'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v2 addr 24:8a:07:b7:a8:03'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v3 addr 24:8a:07:b7:a8:04'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v4 addr 24:8a:07:b7:a8:05'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v5 addr 24:8a:07:b7:a8:06'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v6 addr 24:8a:07:b7:a8:07'
+ExecStartPre=/usr/bin/bash -c 'ip link set enp66s0f0v7 addr 24:8a:07:b7:a8:08'
+# set VF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v0 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v1 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v2 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v3 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v4 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v5 up'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v6 up'
+ExecStart=/usr/bin/bash -c '/usr/bin/ip link set enp66s0f0v7 up'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl enable --now sriov.service
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Create SR-IOV daemon service
+
+nano /etc/systemd/system/sriov.service
+
+# /etc/systemd/system/sriov.service
+[Unit]
+Description=Script to enable SR-IOV on boot
+
+[Service]
+Type=simple
+# set PF UP
+ExecStartPre=/usr/bin/bash -c '/usr/bin/ip link set enp65s0f4 up'
+# start SR-IOV
+ExecStart=/usr/bin/bash -c '/usr/bin/echo 8 > /sys/class/net/enp65s0f4/device/driver/0000:41:00.0/sriov_numvfs'
+
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl enable --now sriov.service
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+reboot
+
+---
+Inspect system logs
+
+dmesg | grep enp*s*f*
+
+---
+/etc/netplan example
+
+# /etc/netplan/main.yaml
+network:
+  ethernets:
+    ens16:
+      macaddress: 24:8a:07:b7:a8:08
+      addresses:
+      - 10.178.0.56/24
+      gateway4: 10.178.0.5
+      dhcp: false
+      dhcp6: false
+      link-local: []
+      nameservers:
+        addresses:
+        - 10.178.0.5
+
+  vlans:
+    vlan10:
+      dhcp4: true
+      dhcp4-overrides:
+          route-metric: 200
+      id: 10
+      link: eno1
+      macaddress: 00:00:00:00:00:10
+
+    vlan20:
+      dhcp4: true
+      dhcp4-overrides:
+          route-metric: 500
+

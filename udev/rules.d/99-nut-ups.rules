@@ -1,0 +1,7 @@
+SUBSYSTEM!="usb", GOTO="nut-usbups_rules_end"
+
+# Cyber Power
+#  e.g. PR1500LCDRT2U UPS CP900AVR2 - usbhid-ups
+ACTION=="add|change", SUBSYSTEM=="usb|usb_device", SUBSYSTEMS=="usb|usb_device", ATTR{idVendor}=="0764", ATTR{idProduct}=="0601", MODE="664", GROUP="nut", RUN+="/sbin/upsdrvctl stop; /sbin/upsdrvctl start"
+
+LABEL="nut-usbups_rules_end"

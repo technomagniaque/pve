@@ -1,0 +1,10 @@
+AuthenticationError : Error login into proxmox env: Couldn't authenticate user: eti to https://192.168.0.7:8006/api2/json/access/ticket
+
+
+
+dnf install htop nano btop systemd-timesyncd                          chrony
+
+apt-get install htop nano btop systemd-timesyncd
+
+
+dnf module install -y php:remi-8.4 Configuring PHP 8.4

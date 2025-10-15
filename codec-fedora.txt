@@ -1,0 +1,86 @@
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+
+sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+
+
+
+sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+
+
+
+
+
+sudo dnf install btrfs-assistant btrbk mpv vlc* yakuake kate snapper materia-gtk-theme qastools alsa-utils alsa-tools alsa-firmware qpwgraph helvum pipewire-v4l2 pipewire-utils pipewire-pulseaudio pipewire-plugin-vulkan pipewire-plugin-libcamera pipewire-module-ffado pipewire-jack-audio-connection-kit pipewire-codec-aptx pipewire-alsa kpipewire media-downloader
+
+
+
+sudo dnf remove libreoffice\* dragon kpat kmines
+
+
+
+
+sudo dnf install virt-viewer cockpit cockpit-files cockpit-navigator cockpit-packagekit qemu-tools qemu-ui* qemu-kvm virt-manager cockpit-machines icedtea-web gparted exfatprogs
+
+
+systemctl enable --now cockpit.socket
+
+
+
+
+
+sudo dnf config-manager addrepo --from-repofile=http://repo.code-industry.net/rpm/master-pdf-editor.repo
+sudo dnf install master-pdf-editor
+
+
+
+
+
+sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
+
+
+sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+
+
+
+
+
+#sudo dnf install intel-media-driver intel-opencl intel-compute-runtime
+
+
+
+#sudo dnf swap mesa-va-drivers-freeworld mesa-va-drivers
+
+
+#sudo dnf swap mesa-vdpau-drivers-freeworld mesa-vdpau-drivers
+
+
+
+
+
+#sudo dnf install flatpak* flatseal waydroid libvirt-daemon-driver-lxc cockpit-podman pcp-pmda-podman podman-machine podman-docker podman-compose podman-tui mpd
+
+#flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+#flatpak --user install -y --noninteractive flathub org.gnome.Sdk/x86_64/48
+
+#flatpak-builder --force-clean --user --install-deps-from=flathub --repo=repo --install build-flatpak io.github.htkhiem.Euphonica.json
+
+
+
+
+
+#sudo dnf install alien rpmrebuild dnfdragor
+
+
+
+
+#dnf install *264* *265* *ffmpeg*
+
+
+#dnf update
+
+
+#dnf search
+
+#dnf remove

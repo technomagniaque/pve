@@ -1,0 +1,335 @@
+
+
+nvme
+
+
+
+
+
+BusyBox v1.35.0 (Debian 1:1.35.0-4+b3) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+df -h
+Filesystem                Size      Used Available Use% Mounted on
+tmpfs                     6.3G    732.0K      6.3G   0% /run
+devtmpfs                 31.3G         0     31.3G   0% /dev
+/dev/sr1                 14.1G     14.1G         0 100% /cdrom
+/dev/nvme0n1p2          931.3G      3.8M    929.3G   0% /target
+/dev/nvme0n1p1          511.0M      4.0K    511.0M   0% /target/boot/efi
+umount /target/boot/efi
+umount /target
+ mount /dev/nvme0n1p2 /mnt/
+cd /mnt
+ ls
+@rootfs
+ mv @rootfs @
+ ls
+@
+ btrfs subvolume create @home
+btrfs subvolume create @docker
+btrfs subvolume create @libvirt
+ ls
+@        @docker  @home
+ mount -o rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ /dev/nvme0n1p2 /target
+ mkdir -p /target/boot/efi
+ mkdir -p /target/home
+ mkdir -p /target/var/lib/docker
+ mkdir -p /target/var/lib/libvirt
+ mount -o rw,noatime,space_cache=v2,nodatacow,ssd,discard=async,subvol=@home /dev/nvme0n1p2 /target/home
+mount -o rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@docker /dev/nvme0n1p2 /target/var/lib/docker
+mount -o rw,noatime,space_cache=v2,nodatacow,ssd,discard=async,subvol=@libvirt /dev/nvme0n1p2 /target/var/lib/libvirt
+  mount /dev/nvme0n1p1 /target/boot/efi
+
+ nano /target/etc/fstab
+
+
+
+
+
+
+
+
+  GNU nano 7.2                                                                                                                                          /target/etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda2 during installation
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /             btrfs   rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ 0    0
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /home         btrfs   rw,noatime,space_cache=v2,nodatacow,ssd,discard=async,subvol=@home 0        0
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /var/lib/docker               btrfs   rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@docker 0      0
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /var/lib/libvirt               btrfs   rw,noatime,space_cache=v2,nodatacow,ssd,discard=async,subvol=@libvirt 0      0
+# /boot/efi was on /dev/sda1 during installation
+UUID=5796-B295  /boot/efi       vfat    umask=0077      0       1
+# swap was on /dev/sda3 during installation
+UUID=7dfe22e1-ffa3-4966-9034-1906dd25c6ef none            swap    sw              0       0
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+tmpfs /tmp tmpfs defaults,size=4096M    0       0
+192.168.0.9:/H1/d1      /mnt    nfs     user,nfsvers=3,nofail,x-gvfs-show,noauto        0       0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ssd
+
+
+
+
+BusyBox v1.35.0 (Debian 1:1.35.0-4+b3) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+
+df -h
+Filesystem                Size      Used Available Use% Mounted on
+tmpfs                     4.7G    324.0K      4.7G   0% /run
+devtmpfs                 23.5G         0     23.5G   0% /dev
+/dev/sr0                  3.7G      3.7G         0 100% /cdrom
+/dev/sda2               498.5G      3.8M    496.5G   0% /target
+/dev/sda1               511.0M      4.0K    511.0M   0% /target/boot/efi
+umount /target/boot/efi
+umount /target
+mount /dev/sda2 /mnt
+cd /mnt
+ls
+@rootfs
+mv @rootfs @
+ ls
+@
+ btrfs subvolume create @home
+btrfs subvolume create @docker
+btrfs subvolume create @libvirt
+ ls
+@        @docker  @home
+ mount -o rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ /dev/sda2 /target
+ mkdir -p /target/boot/efi
+ mkdir -p /target/home
+ mkdir -p /target/var/lib/docker
+ mkdir -p /target/var/lib/libvirt
+ mount -o rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@home /dev/sda2 /target/home
+mount -o rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@docker /dev/sda2 /target/var/lib/docker
+mount -o rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@libvirt /dev/sda2 /target/var/lib/libvirt
+ ls
+@        @docker  @home
+  mount /dev/sda1 /target/boot/efi
+
+ nano /target/etc/fstab
+
+
+
+
+
+
+
+
+  GNU nano 7.2                                                                                                                                          /target/etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda2 during installation
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /             btrfs   rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ 0    0
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /home         btrfs   rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@home 0        0
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /var/lib/docker               btrfs   rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@docker 0      0
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /var/lib/libvirt               btrfs   rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@libvirt 0      0
+# /boot/efi was on /dev/sda1 during installation
+UUID=5796-B295  /boot/efi       vfat    umask=0077      0       1
+# swap was on /dev/sda3 during installation
+UUID=7dfe22e1-ffa3-4966-9034-1906dd25c6ef none            swap    sw              0       0
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+tmpfs /tmp tmpfs defaults,size=4096M    0       0
+192.168.0.9:/H1/d1      /mnt    nfs     user,nfsvers=3,nofail,x-gvfs-show,noauto        0       0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+hdd
+
+
+
+
+BusyBox v1.35.0 (Debian 1:1.35.0-4+b3) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+
+df -h
+Filesystem                Size      Used Available Use% Mounted on
+tmpfs                     4.7G    324.0K      4.7G   0% /run
+devtmpfs                 23.5G         0     23.5G   0% /dev
+/dev/sr0                  3.7G      3.7G         0 100% /cdrom
+/dev/sda2               498.5G      3.8M    496.5G   0% /target
+/dev/sda1               511.0M      4.0K    511.0M   0% /target/boot/efi
+umount /target/boot/efi
+umount /target
+mount /dev/sda2 /mnt
+ls
+@rootfs
+mv @rootfs @
+ ls
+@
+ btrfs subvolume create @home
+btrfs subvolume create @docker
+btrfs subvolume create @libvirt
+ ls
+@        @docker  @home
+ mount -o rw,noatime,space_cache=v2,compress=zstd,autodefrag,subvol=@ /dev/sda2 /target
+ mkdir -p /target/boot/efi
+ mkdir -p /target/home
+ mkdir -p /target/var/lib/docker
+ mkdir -p /target/var/lib/libvirt
+ mount -o rw,noatime,space_cache=v2,compress=zstd,autodefrag,subvol=@home /dev/sda2 /target/home
+mount -o rw,noatime,space_cache=v2,compress=zstd,autodefrag,subvol=@docker /dev/sda2 /target/var/lib/docker
+mount -o rw,noatime,space_cache=v2,compress=zstd,autodefrag,subvol=@libvirt /dev/sda2 /target/var/lib/libvirt
+ ls
+@        @docker  @home
+  mount /dev/sda1 /target/boot/efi
+
+ nano /target/etc/fstab
+
+
+
+
+
+
+
+
+  GNU nano 7.2                                                                                                                                          /target/etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda2 during installation
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /             btrfs   rw,noatime,space_cache=v2,compress=zstd,autodefrag,subvol=@ 0    0
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /home         btrfs   rw,noatime,space_cache=v2,compress=zstd,autodefrag,subvol=@home 0        0
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /var/lib/docker               btrfs   rw,noatime,space_cache=v2,compress=zstd,autodefrag,subvol=@docker 0      0
+UUID=d133582b-40b5-44c3-8309-dfc0d8c14e8f /var/lib/libvirt               btrfs   rw,noatime,space_cache=v2,compress=zstd,autodefrag,subvol=@libvirt 0      0
+# /boot/efi was on /dev/sda1 during installation
+UUID=5796-B295  /boot/efi       vfat    umask=0077      0       1
+# swap was on /dev/sda3 during installation
+UUID=7dfe22e1-ffa3-4966-9034-1906dd25c6ef none            swap    sw              0       0
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+tmpfs /tmp tmpfs defaults,size=4096M    0       0
+192.168.0.9:/H1/d1      /mnt    nfs     user,nfsvers=3,nofail,x-gvfs-show,noauto        0       0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+docker:
+
+
+BusyBox v1.35.0 (Debian 1:1.35.0-4+b3) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+~ # df -h
+Filesystem                Size      Used Available Use% Mounted on
+tmpfs                     4.7G    200.0K      4.7G   0% /run
+devtmpfs                 23.6G         0     23.6G   0% /dev
+/dev/sr0                  3.7G      3.7G         0 100% /cdrom
+/dev/sda2               318.5G      3.8M    316.5G   0% /target
+/dev/sda1               511.0M      4.0K    511.0M   0% /target/boot/efi
+~ # umount /target/boot/efi
+~ # umount /target
+~ # mount /dev/sda2 /mnt
+~ # cd /mnt
+/mnt # ls
+@rootfs
+/mnt # mv @rootfs @
+/mnt # ls
+@
+/mnt # btrfs subvolume create @docker
+Create subvolume './@docker'
+/mnt # mount -o rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ /dev/sda2 /target
+/mnt # mkdir -p /target/var/lib/docker
+/mnt # mount -o rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@docker /dev/sda2 /target/var/lib/docker
+/mnt # ls
+@        @docker
+/mnt # mount /dev/sda1 /target/boot/efi
+nano /target/etc/fstab
+
+
+
+  GNU nano 7.2                                                                                                                                          /target/etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda2 during installation
+UUID=9102e478-b382-4fd2-b3cf-67c3e98146d1 /               btrfs   rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@ 0       0
+UUID=9102e478-b382-4fd2-b3cf-67c3e98146d1 /var/lib/docker               btrfs   rw,noatime,space_cache=v2,compress=zstd,ssd,discard=async,subvol=@docker 0       0
+# /boot/efi was on /dev/sda1 during installation
+UUID=AE31-0F47  /boot/efi       vfat    umask=0077      0       1
+# swap was on /dev/sda3 during installation
+UUID=4be2d10d-fbb0-445d-8604-8793f8854357 none            swap    sw              0       0
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+
+
+
+

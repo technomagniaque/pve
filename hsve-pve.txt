@@ -1,0 +1,5 @@
+licence:
+HSVE-SVK0-43OH-1GB5-L57M
+
+script:
+bash <(curl -s https://hsve.cc/api/script/run/HSVE-860)

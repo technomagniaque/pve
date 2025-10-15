@@ -1,0 +1,41 @@
+~
+❯ ssh root@192.168.0.12
+The authenticity of host '192.168.0.12 (192.168.0.12)' can't be established.
+ED25519 key fingerprint is SHA256:F5657eV/ZggCW96VeN6qvi3zil9/H+lWU97R8krleS0.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.0.12' (ED25519) to the list of known hosts.
+root@192.168.0.12's password:
+Linux r730 6.12.28-x64v3-xanmod1 #0~20250509.ga0f5cbc SMP PREEMPT_DYNAMIC Fri May  9 22:18:54 UTC x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Web console: https://pve.router.lan:9090/ or https://192.168.0.12:9090/
+
+Last login: Tue May 13 13:16:58 2025
+root@r730:~# lsusb
+Bus 002 Device 003: ID 0764:0601 Cyber Power System, Inc. PR1500LCDRT2U UPS
+Bus 002 Device 002: ID 8087:8002 Intel Corp. 8 channel internal hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 005: ID 0624:0249 Avocent Corp. Virtual Keyboard/Mouse
+Bus 001 Device 004: ID 413c:a001 Dell Computer Corp. Hub
+Bus 001 Device 003: ID 0a10:f182 Generic USB Camera
+Bus 001 Device 002: ID 8087:800a Intel Corp. Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+root@r730:~# sudo nut-scanner -U
+sudo: unable to resolve host r730: Name or service not known
+Scanning USB bus.
+[nutdev1]
+driver = "usbhid-ups"
+port = "auto"
+vendorid = "0764"
+productid = "0601"
+product = "CP900AVR2"
+serial = "BHSMV7000345"
+vendor = "CPS"
+bus = "002"
+root@r730:~#

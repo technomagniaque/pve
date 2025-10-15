@@ -1,0 +1,5 @@
+ovs-vsctl set Open_vSwitch . other_config:hw-offload=true
+
+
+ovs-ofctl -O OpenFlow13 add-meter vmbr1 "meter=1 pktps bands=type=drop rate=1"
+# ovs-ofctl -O OpenFlow13 add-flow vmbr1 "priority=10,in_port=ovs-p0,udp actions=meter:1,normal"

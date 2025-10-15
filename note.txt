@@ -1,0 +1,40 @@
+root@scorpion:/tmp# aptitude upgrade
+Resolving dependencies...
+The following NEW packages will be installed:
+  linux-headers-5.15.0-97{a} linux-headers-5.15.0-97-generic{a} linux-image-5.15.0-97-generic{a} linux-modules-5.15.0-97-generic{a} linux-modules-extra-5.15.0-97-generic{a}
+The following packages will be upgraded:
+  cloud-init firmware-sof-signed linux-generic linux-headers-generic linux-image-generic linux-libc-dev tcpdump
+7 packages upgraded, 5 newly installed, 0 to remove and 0 not upgraded.
+Need to get 117 MB of archives. After unpacking 582 MB will be used.
+
+
+
+
+
+
+
+
+
+The following packages were automatically installed and are no longer required:
+  amd64-microcode grub-common grub-gfxpayload-lists grub-pc grub-pc-bin grub2-common libdbus-glib-1-2 libevdev2 libimobiledevice6 libplist3 libupower-glib3 libusbmuxd6 linux-headers-5.15.0-94 linux-headers-5.15.0-97 os-prober thermald
+  upower usbmuxd wireless-regdb
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  linux-generic* linux-headers-5.15.0-94-generic* linux-headers-5.15.0-97-generic* linux-headers-generic* linux-image-5.15.0-94-generic* linux-image-5.15.0-97-generic* linux-image-generic* linux-modules-5.15.0-94-generic*
+  linux-modules-5.15.0-97-generic* linux-modules-extra-5.15.0-94-generic* linux-modules-extra-5.15.0-97-generic*
+0 upgraded, 0 newly installed, 11 to remove and 0 not upgraded.
+After this operation, 1009 MB disk space will be freed.
+Do you want to continue? [Y/n]
+
+
+
+root@scorpion:/home/ubuntu# apt-get autoremove --purge
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages will be REMOVED:
+  amd64-microcode* grub-common* grub-gfxpayload-lists* grub-pc* grub-pc-bin* grub2-common* libdbus-glib-1-2* libevdev2* libimobiledevice6* libplist3* libupower-glib3* libusbmuxd6* linux-headers-5.15.0-94* linux-headers-5.15.0-97*
+  os-prober* thermald* upower* usbmuxd* wireless-regdb*
+0 upgraded, 0 newly installed, 19 to remove and 0 not upgraded.
+After this operation, 177 MB disk space will be freed.
+Do you want to continue? [Y/n]
