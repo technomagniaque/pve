@@ -46,12 +46,14 @@ apt-get install sudo libncursesw5 libncurses5 htop driverctl
 
 apt-get install sudo htop gnupg2 curl net-tools driverctl ipmitool ipmiutil nano btop nut libneon27 mesa-utils
 
-apt-get install openvswitch-switch nut libneon27 ipmiutil ipmitool nano btop htop gnupg2 curl net-tools driverctl
 
+apt-get install openvswitch-switch nut libneon27 ipmiutil ipmitool nano btop htop gnupg2 curl net-tools driverctl
 
 
 wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg
 
+
+wget -qO - https://dl.xanmod.org/archive.key | gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg
 
 cd /tmp
 curl -o setup-repos.sh https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh
@@ -62,7 +64,7 @@ sh setup-repos.sh
 
 
 
-apt-get install linux-xanmod-lts-x64v3 git dkms build-essential
+apt-get install git dkms build-essential proxmox-default-headers linux-xanmod-lts-x64v3
 
 
 
@@ -452,8 +454,23 @@ ip addr
 
 
 
+nano  /lib/systemd/system/vrwa.service
 
 
+[Unit]
+Description=vrwa Service
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/bash -c 'echo device_specific > /sys/bus/pci/devices/0000:05:00.0/reset_method'
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+systemctl daemon-reload
+systemctl enable vrwa
 
 
 
