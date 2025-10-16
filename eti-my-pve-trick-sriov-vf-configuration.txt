@@ -62,9 +62,9 @@ sh setup-repos.sh
 
 
 
+apt-get install git dkms build-essential linux-xanmod-lts-x64v3 libelf-dev scx-scheds
 
-
-apt-get install git dkms build-essential proxmox-default-headers linux-xanmod-lts-x64v3
+apt-get install git dkms build-essential proxmox-default-headers libelf-dev scx-scheds
 
 
 
